@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="format-detection" content="telephone=no" />
+
+	<!--<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />-->
+
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	
+	<title>Checklist</title>
+	
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+	<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css" />
+	<link rel="stylesheet" type="text/css" href="css/styles.css" />
+
+	<!-- ########### CORE ########### -->
+	<script src="phonegap.js"></script>
+	<script type="text/javascript" src="js/inc/jquery-2.1.0.min.js"></script>
+	<script type="text/javascript" src="js/inc/underscore-min.js"></script>
+	<script type="text/javascript" src="js/inc/backbone-min.js"></script>
+	<script type="text/javascript" src="js/inc/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/Config.js"></script>
+
+	<script type="text/javascript" src="js/models/ItemModel.js"></script>
+	<script type="text/javascript" src="js/models/SettingsModel.js"></script>
+	
+	<script type="text/javascript" src="js/collections/ItemCollection.js"></script>
+
+	<script type="text/javascript" src="js/views/ItemView.js"></script>
+	<script type="text/javascript" src="js/views/ChecklistItemView.js"></script>
+	<script type="text/javascript" src="js/views/SettingsView.js"></script>
+	<script type="text/javascript" src="js/views/HomeView.js"></script>
+	
+	<script type="text/javascript" src="js/App.js"></script>
+	
+
+	<!-- ########### TEMPLATES ########### -->
+	<script type="text/template" id="settingsView">
+		<div class="container">
+			<nav class="navbar navbar-default navbar-fixed-top navbar-inverse" role="navigation">
+				<div class="container" id="master_navigation">
+					<a href="#" class="btn btn-default navbar-btn"><span class="glyphicon glyphicon-chevron-left"></span> Back</a>
+					<a id="addNewRow" href="#" class="btn btn-default navbar-btn pull-right">Add <span class="glyphicon glyphicon-plus"></span></a>
+				</div>
+			</nav>
+		</div>
+
+		<div id="main">
+			<div class="container" role="form">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">When the checklist is done, send this email:</h3>
+					</div>
+					<div class="panel-body">
+						<div class="form-group input-group">
+							<span class="input-group-addon">To</span>
+							<input type="text" class="form-control message-to" placeholder="Recipient's name" value="<%= name %>" />
+						</div>
+
+						<div class="form-group input-group">
+							<span class="input-group-addon">@</span>
+							<input type="text" class="form-control message-email" placeholder="Recipient's email address" value="<%= email %>" />
+						</div>
+						<div class="form-group">
+							<input type="text" class="form-control message-subject" placeholder="Subject" value="<%= subject %>" />
+						</div>
+						<div class="form-group">
+							<textarea class="form-control message-message" rows="3" placeholder="Message"><%= message %></textarea>
+						</div>
+					</div>
+				</div>
+
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">Checklist questions:</h3>
+					</div>
+					<div class="panel-body">
+						<ul class="list-group" id="itemList" role="form"></ul>
+					</div>
+				</div>
+
+				<div class="form-group col-md-12 input-group-lg">
+					<button type="button" class="btn btn-primary btn-save">Save</button>
+					<button type="button" class="btn btn-default btn-cancel">Cancel</button>
+				</div>
+			</div>
+		</div>
+	</script>
+
+	<script type="text/template" id="itemView">
+		<div class="row">
+			<div class="form-group col-md-10 input-group-lg">
+				<input type="text" class="form-control" value="<%= label %>" placeholder="Label">
+			</div>
+			<div class="col-md-2 pull-right">
+				<button type="button" class="btn btn-primary btn-move-up"><span class="glyphicon glyphicon-arrow-up"></span></button>
+				<button type="button" class="btn btn-primary btn-move-down"><span class="glyphicon glyphicon-arrow-down"></span></button>
+				<button type="button" class="btn btn-danger btn-removeItem"><span class="glyphicon glyphicon-remove"></span></button>
+			</div>
+		</div>
+	</script>
+
+	<script type="text/template" id="homeView">
+		<div class="container">
+			<nav class="navbar navbar-default navbar-fixed-top navbar-inverse" role="navigation">
+				<div class="container" id="master_navigation">
+					<a href="#settings" class="btn btn-default navbar-btn"><span class="glyphicon glyphicon-cog"></span> Settings</a>
+				</div>
+			</nav>
+		</div>
+
+		<% if(window.itemCollection.length > 0) { %>
+			<div id="main">
+				<div class="container" role="form">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title">Checklist questions:</h3>
+						</div>
+						<div class="panel-body">
+							<ul class="list-group" id="itemList" role="form"></ul>
+						</div>
+					</div>
+
+					<div class="form-group col-md-12 input-group-lg">
+						<button type="button" class="btn btn-primary btn-lg btn-save">I'm done! <span class="glyphicon glyphicon-send"></span><!--'--></button>
+					</div>
+				</div>
+			</div>
+		<% } %>
+	</script>
+
+	<script type="text/template" id="checklistItemView">
+		<div class="row">
+			<div class="form-group">
+				<label for="inputEmail3" class="col-sm-10 control-label"><%= label %></label>
+				<div class="col-sm-2">
+					<% if(done) { %>
+						<button type="button" class="btn btn-success btn-untick">Done <span class="glyphicon glyphicon-ok"></span></button>
+					<% } else { %>
+						<button type="button" class="btn btn-primary btn-tick">Done?</button>
+					<% }  %>
+				</div>
+			</div>
+		</div>
+	</script>
+	
+</head>
+<body onload="app.initialize()">
+	
+</body>
+</html>
