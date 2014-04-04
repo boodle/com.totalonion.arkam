@@ -11,7 +11,7 @@ var app = {
 		if(typeof navigator.connection != 'undefined') var mode = 'app';
 		else var mode = 'web';
 
-		trace('starting app v'+config.version+' mode: '+mode);
+		trace('starting app. Mode: '+mode);
 
 		switch(mode) {
 			case 'app':
@@ -74,7 +74,9 @@ var app = {
 					to.add({
 						displayOrder: item.get('displayOrder'),
 						label: item.get('label'),
-						type: item.get('type')
+						type: item.get('type'),
+						done: item.get('done'),
+						data: item.get('data')
 					});
 				}
 			}

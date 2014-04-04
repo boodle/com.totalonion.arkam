@@ -4,9 +4,9 @@
 		/**
 		 * Display the home screen
 		 */
-		window.ItemView = Backbone.View.extend({
+		window.SettingItemView = Backbone.View.extend({
 
-			template: _.template($('#itemView').html()),
+			template: _.template($('#settingItemView').html()),
 			tagName: 'li',
 
 			initialize: function() {
@@ -15,7 +15,8 @@
 					'on_remove',
 					'on_keyup',
 					'on_moveUp',
-					'on_moveDown'
+					'on_moveDown',
+					'on_itemTypeChange'
 				);
 			},
 
@@ -23,7 +24,8 @@
 				'click .btn-removeItem':	'on_remove',
 				'keyup input': 				'on_keyup',
 				'click .btn-move-up': 		'on_moveUp',
-				'click .btn-move-down': 	'on_moveDown'
+				'click .btn-move-down': 	'on_moveDown',
+				'change .item-type': 		'on_itemTypeChange'
 			},
 
 			on_remove: function() {
@@ -53,6 +55,10 @@
 					this.model.set('displayOrder',currentDisplayOrder+1);
 				}
 				this.collection.trigger('orderChanged');
+			},
+
+			on_itemTypeChange: function(e) {
+				this.model.set({type:$(e.target).val()});
 			},
 
 			/**

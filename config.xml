@@ -3,7 +3,7 @@
 	xmlns = "http://www.w3.org/ns/widgets"
 	xmlns:gap   = "http://phonegap.com/ns/1.0"
 	id		  = "com.totalonion.arkam"
-	version	 = "0.1.7"
+	version	 = "0.1.9"
 	versionCode = "10">
 
 	<preference name="phonegap-version" value="3.3.0" />
@@ -12,27 +12,26 @@
 	<description>Complete a checklist to keep the OCD demons at bay.</description>
 	<author href="http://www.totalonion.com" email="apps@totalonion.com">Total Onion</author>
 
-	<gap:plugin name="org.apache.cordova.device" />
-	<!-- <gap:plugin name="org.apache.cordova.camera" /> -->
+	<gap:plugin name="org.apache.cordova.camera" version="0.2.4" />
 
 	<!-- default icon -->
 	<icon src="icon.png" />
 
 	<!-- iOS icons -->
-	<icon src="resources/icon/ios/ios_57.png"  gap:platform="ios" width="57" height="57" />
-	<icon src="resources/icon/ios/ios_72.png"  gap:platform="ios" width="72" height="72" />
-	<icon src="resources/icon/ios/ios_114.png" gap:platform="ios" width="114" height="114" />
-	<icon src="resources/icon/ios/ios_144.png" gap:platform="ios" width="144" height="144" />
+	<icon src="res/icon/ios/ios_57.png"  gap:platform="ios" width="57" height="57" />
+	<icon src="res/icon/ios/ios_72.png"  gap:platform="ios" width="72" height="72" />
+	<icon src="res/icon/ios/ios_114.png" gap:platform="ios" width="114" height="114" />
+	<icon src="res/icon/ios/ios_144.png" gap:platform="ios" width="144" height="144" />
 
 	<!-- Android icons -->
-	<icon src="resources/icon/android/ldpi.png"  gap:platform="android" gap:density="ldpi" />
-	<icon src="resources/icon/android/mdpi.png"  gap:platform="android" gap:density="mdpi" />
-	<icon src="resources/icon/android/hdpi.png"  gap:platform="android" gap:density="hdpi" />
-	<icon src="resources/icon/android/xhdpi.png" gap:platform="android" gap:density="xhdpi" />
+	<icon src="res/icon/android/ldpi.png"  gap:platform="android" gap:density="ldpi" />
+	<icon src="res/icon/android/mdpi.png"  gap:platform="android" gap:density="mdpi" />
+	<icon src="res/icon/android/hdpi.png"  gap:platform="android" gap:density="hdpi" />
+	<icon src="res/icon/android/xhdpi.png" gap:platform="android" gap:density="xhdpi" />
 
 	<!-- Windows Phone icons -->
-	<icon src="resources/icon/winphone/win_48.png" gap:platform="winphone" />
-	<icon src="resources/icon/winphone/win_173.png" gap:platform="winphone" gap:role="background" />
+	<icon src="res/icon/winphone/win_48.png" gap:platform="winphone" />
+	<icon src="res/icon/winphone/win_173.png" gap:platform="winphone" gap:role="background" />
 
 	<gap:splash src="splash.png" />
 </widget>

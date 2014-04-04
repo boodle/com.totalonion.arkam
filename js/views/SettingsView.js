@@ -44,12 +44,12 @@
 			},
 
 			render_item: function(itemModel) {
-				var itemView = new window.ItemView({
+				var itemView = new window.SettingItemView({
 					model: itemModel,
 					collection: this.collection
 				});
 
-				this.$('#itemList').append(itemView.render().el);
+				this.$('#settingsItemList').append(itemView.render().el);
 			},
 
 			/**

@@ -1,3 +1,12 @@
 #main {
 	margin-top: 80px;
 }
+
+/* Home page */
+#itemList>tbody>tr>td { vertical-align: middle; }
+.right { text-align: right; }
+
+/* Settings */
+#settingsItemList select.form-control {
+	
+}

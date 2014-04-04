@@ -9,8 +9,9 @@
 		defaults: {
 			displayOrder: 	0,
 			label: 			'',
-			type: 			'checkbox',
-			done: 			false
+			type: 			'button',
+			done: 			false,
+			data: 			''
 		}
 	});
 
