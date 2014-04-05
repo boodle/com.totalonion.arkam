@@ -53,7 +53,7 @@
 					done: true,
 					data: imageData
 				});
-				alert('Success! ' + imageData);
+				alert('Success! ' + imageData.length);
 			},
 
 			on_cameraError: function(message) {
