@@ -37,6 +37,9 @@
 				},
 				error: function(jqXHR, textStatus, errorThrown) {
 					trace('error');
+					trace(jqXHR);
+					trace(textStatus);
+					trace(errorThrown);
 				}
 			});
 		}
