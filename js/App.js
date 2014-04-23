@@ -42,7 +42,9 @@ var app = {
 				window.itemCollection = new ItemCollection();
 				window.itemCollection.load();
 
-				window.settingsModel = new SettingsModel();
+				window.settingsModel = new SettingsModel({
+					collection: window.itemCollection
+				});
 				window.settingsModel.load();
 			},
 			

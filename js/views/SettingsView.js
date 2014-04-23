@@ -87,7 +87,7 @@
 				);
 
 				window.itemCollection.save();														// and save it
-				//window.backboneApp.navigate('',{trigger: true});									// navigate back to the main screen
+				window.backboneApp.navigate('',{trigger: true});									// navigate back to the main screen
 			}
 		});
 	});

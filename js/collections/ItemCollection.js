@@ -6,6 +6,8 @@
 		currentDisplayOrder: 0,
 		comparator: 'displayOrder',
 
+		url: 'http://arqam.totalonion.com/',
+
 		initialize: function() {
 			this.on('remove',this.on_remove);
 			this.on('orderChanged',this.sort)
@@ -52,6 +54,10 @@
 					this.at(i).set('displayOrder',currentDisplayOrder-1);
 				}
 			}
+		},
+
+		syncCollection: function() {
+			Backbone.sync('create', this);
 		}
 	})
 })(jQuery);

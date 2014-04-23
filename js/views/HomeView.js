@@ -13,7 +13,17 @@
 			 * @return void
 			 */
 			initialize: function() {
-				_.bindAll(this,	'render');
+				_.bindAll(this,	
+					'render',
+					'on_collectionChange',
+					'on_save'
+				);
+
+				this.collection.on('change:done',this.on_collectionChange);
+			},
+
+			events: {
+				'click .btn-save': 			'on_save'
 			},
 
 			/**
@@ -26,6 +36,9 @@
 				this.collection.each(function(item){
 					view.render_item(item);
 				});
+
+				this.on_collectionChange();
+
 				return this;
 			},
 
@@ -37,6 +50,20 @@
 
 				this.$('#itemList').append(checklistItemView.render().el);
 			},
+
+			on_collectionChange: function() {
+				trace('HomeView::on_collectionChange');
+				if(this.collection.where({done:false}).length == 0) {
+					this.$('.btn-save').removeAttr('disabled');
+				} else {
+					this.$('.btn-save').attr('disabled','disabled');
+				}
+			},
+
+			on_save: function() {
+				trace('HomeView::on_save');
+				this.model.send();
+			}
 		});
 	});
 })(jQuery);
