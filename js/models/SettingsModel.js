@@ -30,7 +30,8 @@
 				alert(e.get('data').length);
 			});
 
-			/*
+			trace(JSON.stringify(this.attributes));
+			
 			$.ajax({
 				type: "POST",
 				url: config.apiEndpoint,
@@ -45,7 +46,7 @@
 					trace(textStatus);
 					trace(errorThrown);
 				}
-			});*/
+			});
 		}
 	});
 
