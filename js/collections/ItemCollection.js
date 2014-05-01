@@ -10,7 +10,9 @@
 
 		initialize: function() {
 			this.on('remove',this.on_remove);
-			this.on('orderChanged',this.sort)
+			this.on('orderChanged',this.sort);
+			this.on('change:data',this.save);
+			this.on('change:done',this.save);
 		},
 
 		load: function() {
@@ -54,10 +56,6 @@
 					this.at(i).set('displayOrder',currentDisplayOrder-1);
 				}
 			}
-		},
-
-		syncCollection: function() {
-			Backbone.sync('create', this);
 		}
 	})
 })(jQuery);

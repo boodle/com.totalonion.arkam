@@ -30,12 +30,17 @@
 				alert(e.get('data').length);
 			});
 
-			trace(JSON.stringify(this.attributes));
+			var data = this.attributes;
+			data.collection = window.itemCollection.models;
+
+			trace('###');
+			trace(JSON.stringify(data));
+			trace('###');
 			
 			$.ajax({
 				type: "POST",
 				url: config.apiEndpoint,
-				data: this.attributes,
+				data: data,
 				dataType: 'json',
 				success: function(data, textStatus, jqXHR) {
 					trace('success');
