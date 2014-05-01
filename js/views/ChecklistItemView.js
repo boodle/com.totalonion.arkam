@@ -49,6 +49,7 @@
 			},
 
 			on_cameraSuccess: function(imageData) {
+				alert('data len: '+imageData.length);
 				this.model.set({
 					done: true,
 					data: imageData

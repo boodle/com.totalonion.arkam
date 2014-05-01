@@ -26,7 +26,11 @@
 		},
 
 		send: function() {
-			//JSON.stringify(this.attributes)
+			window.itemCollection.each(function(e){
+				alert(e.get('data').length);
+			});
+
+			/*
 			$.ajax({
 				type: "POST",
 				url: config.apiEndpoint,
@@ -41,7 +45,7 @@
 					trace(textStatus);
 					trace(errorThrown);
 				}
-			});
+			});*/
 		}
 	});
 
