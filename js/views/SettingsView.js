@@ -78,7 +78,7 @@
 					subject: 	this.$('.message-subject').val(),
 					message: 	this.$('.message-message').val()
 				});
-				trace(this.model);
+				
 				this.model.save();																	// save the email, subject, message etc
 
 				window.backboneApp.copyItemCollection(												// copy the collection from the temp one here, to the master one

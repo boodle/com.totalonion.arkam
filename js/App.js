@@ -30,11 +30,13 @@ var app = {
 		var BackboneApp = Backbone.Router.extend({
 			path: [],
 			appHeight: 0,
+			isSending: false,
 
 			routes: {
 				'': 			'home',
 				'home':			'home',
-				'settings': 	'settings'
+				'settings': 	'settings',
+				'sending': 		'sending'
 			},
 
 			initialize: function() {
@@ -65,6 +67,12 @@ var app = {
 					collection: window.settingsItemCollection
 				});
 				$('body').html(window.settingsView.render().el);
+			},
+
+			sending: function() {
+				trace('Router --> sending');
+				window.sendingView = new SendingView();
+				$('body').append(window.sendingView.render().el);
 			},
 
 			copyItemCollection: function(from,to) {

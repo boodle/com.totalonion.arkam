@@ -16,10 +16,12 @@
 				_.bindAll(this,	
 					'render',
 					'on_collectionChange',
-					'on_save'
+					'on_save',
+					'on_complete'
 				);
 
 				this.collection.on('change:done',this.on_collectionChange);
+				window.backboneApp.on('uploadComplete',this.on_complete);
 			},
 
 			events: {
@@ -62,7 +64,18 @@
 
 			on_save: function() {
 				trace('HomeView::on_save');
+				window.backboneApp.navigate('sending',{trigger: true});
 				this.model.send();
+			},
+
+			on_complete: function() {
+				trace('HomeView::on_complete()');
+				this.collection.each(function(item){
+					item.set({
+						data: '',
+						done: false
+					});
+				});
 			}
 		});
 	});

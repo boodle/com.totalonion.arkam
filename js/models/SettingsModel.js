@@ -32,15 +32,28 @@
 			dataTempObject.collection = window.itemCollection.models;
 			
 			$.ajax({
+				xhr: function() {
+					var xhr = new window.XMLHttpRequest();
+					xhr.upload.addEventListener("progress", function(evt) {
+						if(evt.lengthComputable) {
+							var percentComplete = Math.round((evt.loaded / evt.total)*100);
+							window.backboneApp.trigger('uploadProgress',percentComplete);
+						}
+					}, false);
+
+					return xhr;
+				},
 				type: "POST",
 				url: config.apiEndpoint,
 				data: JSON.stringify(dataTempObject),
 				dataType: 'json',
 				success: function(data, textStatus, jqXHR) {
 					alert('Sent successfully.');
+					window.backboneApp.trigger('uploadComplete');
 				},
 				error: function(jqXHR, textStatus, errorThrown) {
 					alert('Sending failed: '+errorThrown);
+					window.backboneApp.trigger('uploadFailed');
 				}
 			});
 		}
