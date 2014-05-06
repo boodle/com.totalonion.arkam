@@ -26,30 +26,21 @@
 		},
 
 		send: function() {
-			window.itemCollection.each(function(e){
-				alert(e.get('data').length);
-			});
+			trace('SettingsModel::send()');
 
-			var data = this.attributes;
-			data.collection = window.itemCollection.models;
-
-			trace('###');
-			trace(JSON.stringify(data));
-			trace('###');
+			var dataTempObject = this.attributes;
+			dataTempObject.collection = window.itemCollection.models;
 			
 			$.ajax({
 				type: "POST",
 				url: config.apiEndpoint,
-				data: data,
+				data: JSON.stringify(dataTempObject),
 				dataType: 'json',
 				success: function(data, textStatus, jqXHR) {
-					trace('success');
+					alert('Sent successfully.');
 				},
 				error: function(jqXHR, textStatus, errorThrown) {
-					trace('error');
-					trace(jqXHR);
-					trace(textStatus);
-					trace(errorThrown);
+					alert('Sending failed: '+errorThrown);
 				}
 			});
 		}
