@@ -2,13 +2,13 @@
 <widget 
 	xmlns = "http://www.w3.org/ns/widgets"
 	xmlns:gap   = "http://phonegap.com/ns/1.0"
-	id		  = "com.totalonion.arkam"
-	version	 = "0.1.21"
+	id		  = "com.totalonion.arqam"
+	version	 = "0.1.25"
 	versionCode = "20">
 
 	<preference name="phonegap-version" value="3.3.0" />
 
-	<name>Arkam</name>
+	<name>Arqam</name>
 	<description>Complete a checklist to keep the OCD demons at bay.</description>
 	<author href="http://www.totalonion.com" email="apps@totalonion.com">Total Onion</author>
 

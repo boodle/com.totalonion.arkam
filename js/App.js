@@ -33,10 +33,12 @@ var app = {
 			isSending: false,
 
 			routes: {
-				'': 			'home',
-				'home':			'home',
-				'settings': 	'settings',
-				'sending': 		'sending'
+				'': 				'home',
+				'home':				'home',
+				'settings': 		'settings',
+				'sending': 			'sending',
+				'firstRunStep1':	'firstRunStep1',
+				'firstRunStep2':	'firstRunStep2'
 			},
 
 			initialize: function() {
@@ -47,14 +49,35 @@ var app = {
 				window.settingsModel = new SettingsModel();
 				window.settingsModel.load();
 			},
-			
-			home: function() {
-				trace('Router --> home');
-				window.homeView = new HomeView({
+
+			firstRunStep1: function() {
+				trace('Router --> firstRunStep1');
+
+				window.firstRunStep1 = new FirstRunStep1({
 					model: window.settingsModel,
 					collection: window.itemCollection
 				});
-				$('body').html(window.homeView.render().el);
+				$('body').html(window.firstRunStep1.render().el);
+			},
+
+			firstRunStep2: function() {
+				trace('Router --> firstRunStep2');
+
+				window.firstRunStep2 = new FirstRunStep2({
+					model: window.settingsModel
+				});
+				$('body').html(window.firstRunStep2.render().el);
+			},
+			
+			home: function() {
+				if(this.checkSetupIsComplete()) {
+					trace('Router --> home');
+					window.homeView = new HomeView({
+						model: window.settingsModel,
+						collection: window.itemCollection
+					});
+					$('body').html(window.homeView.render().el);
+				}
 			},
 
 			settings: function() {
@@ -75,6 +98,47 @@ var app = {
 				$('body').append(window.sendingView.render().el);
 			},
 
+			/**
+			 * Check we have gone through the first
+			 * run process to setup the initial
+			 * checklist and email settings. If they
+			 * haven't then redirect to the setup.
+			 * 
+			 * @return boolean
+			 */
+			checkSetupIsComplete: function() {
+				if(localStorage.getItem('setupComplete')) return true;											// have we finished setup?
+
+				if(!localStorage.getItem('setupStep')) {
+					localStorage.setItem('setupStep',1);
+				}
+
+				switch(localStorage.getItem('setupStep')) {
+					case "1":
+						window.backboneApp.navigate('firstRunStep1',{trigger: true});							// navigate to the first setup step
+						return false;
+						break;
+
+					case "2":
+						window.backboneApp.navigate('firstRunStep2',{trigger: true});							// go to the second setup screen
+						return false;
+						break;
+				}
+				
+				// TODO - report an error if we get here
+				return false;
+			},
+
+			/**
+			 * Utility function to shallow clone a
+			 * collection of settings. Used so we can
+			 * have a "save / cancel" option in the
+			 * settings page.
+			 * 
+			 * @param  collection from
+			 * @param  collection to
+			 * @return void
+			 */
 			copyItemCollection: function(from,to) {
 				to.reset();
 				for(var i=0; i<from.length; i++) {

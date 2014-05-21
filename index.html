@@ -32,6 +32,8 @@
 	
 	<script type="text/javascript" src="js/collections/ItemCollection.js"></script>
 
+	<script type="text/javascript" src="js/views/FirstRunStep1.js"></script>
+	<script type="text/javascript" src="js/views/FirstRunStep2.js"></script>
 	<script type="text/javascript" src="js/views/SettingItemView.js"></script>
 	<script type="text/javascript" src="js/views/ChecklistItemView.js"></script>
 	<script type="text/javascript" src="js/views/SettingsView.js"></script>
@@ -42,12 +44,118 @@
 	
 
 	<!-- ########### TEMPLATES ########### -->
+	<script type="text/template" id="instruction1-1">
+		<h4>Let's get started!</h4> 
+		<p>First let's add an item to your checklist, by clicking the <span class="btn btn-default btn-sm">Add <span class="glyphicon glyphicon-plus"></span></span> button below.</p>
+		<p>Don't worry, you can change all of this later through the settings.</p><!-- ' -->
+	</script>
+
+	<script type="text/template" id="instruction1-2">
+		<h4>Nice!</h4> 
+		<p>OK, now give it a label. Anything you like; <em>"Is the candle off?"</em>, <em>"Have you put the dog out?"</em>, or <em>"Have you given yourself a self high-five today?"</em>.</p>
+	</script>
+
+	<script type="text/template" id="instruction1-3">
+		<h4>Loving it!</h4> 
+		<p>
+			You can add as many or as few of these as you like. Use the 
+			<button type="button" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-arrow-up"></span></button>
+			and 
+			<button type="button" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-arrow-down"></span></button>
+			arrows to change the order. Use the 
+			<button type="button" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-remove"></span></button>
+			to remove items, and use the dropdown to say if it's just a button, or if you have to take a pic to show it's been done.
+		</p>
+	</script>
+
+	<script type="text/template" id="instruction2-1">
+		<h4>Last step!</h4> 
+		<p>OK, finally tell us who we should send your checklist to when you have completed it. Want to test it first? Why not put your name &amp; email in below, you can always change this is the settings later.</p>
+	</script>
+
+	<script type="text/template" id="firstRunStep1">
+		<div class="container" id="page_settings">
+			<nav class="navbar navbar-default navbar-fixed-top navbar-inverse" role="navigation">
+				Setup
+			</nav>
+		</div>
+
+		<div id="main">
+			<div id="instructions" class="container">
+				<div class="alert alert-info">
+					<div id="instruction-text"></div>
+				</div>
+			</div>
+			<div class="container form-inline" role="form">
+				<div class="panel panel-default">
+					<div class="panel-heading clearfix">
+						<h4 class="panel-title pull-left" style="padding-top: 7.5px;">Checklist questions:</h4>
+						<div class="btn-group pull-right">
+							<a id="addNewRow" href="#" class="btn btn-default btn-sm">Add <span class="glyphicon glyphicon-plus"></span></a>
+						</div>
+					</div>
+
+					<div class="panel-body">
+						<ul class="list-group" id="settingsItemList" role="form"></ul>
+					</div>
+				</div>
+
+				<div class="form-group col-md-12 input-group-lg">
+					<button type="button" class="btn btn-primary btn-save" disabled="disabled">Save</button>
+				</div>
+			</div>
+		</div>
+	</script>
+
+	<script type="text/template" id="firstRunStep2">
+		<div class="container" id="page_settings">
+			<nav class="navbar navbar-default navbar-fixed-top navbar-inverse" role="navigation">
+				Setup
+			</nav>
+		</div>
+
+		<div id="main">
+			<div id="instructions" class="container">
+				<div class="alert alert-info">
+					<div id="instruction-text"></div>
+				</div>
+			</div>
+			<div class="container form-inline" role="form">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">When the checklist is done, send this email:</h3>
+					</div>
+					<div class="panel-body">
+						<div class="form-group input-group">
+							<span class="input-group-addon">To</span>
+							<input type="text" class="form-control message-to" placeholder="Recipient's name" value="<%= name %>" />
+						</div>
+
+						<div class="form-group input-group">
+							<span class="input-group-addon">@</span>
+							<input type="text" class="form-control message-email" placeholder="Recipient's email address" value="<%= email %>" />
+						</div>
+						<div class="form-group">
+							<input type="text" class="form-control message-subject" placeholder="Here's my checklist" value="<%= subject %>" />
+						</div>
+						<div class="form-group">
+							<textarea class="form-control message-message" rows="3" placeholder="Hi there, here is my completed checklist and pictures."><%= message %></textarea>
+						</div>
+					</div>
+				</div>
+
+				<div class="form-group col-md-12 input-group-lg">
+					<button type="button" class="btn btn-primary btn-save" disabled="disabled">Save</button>
+				</div>
+			</div>
+		</div>
+	</script>
+
 	<script type="text/template" id="settingsView">
 		<div class="container" id="page_settings">
 			<nav class="navbar navbar-default navbar-fixed-top navbar-inverse" role="navigation">
 				<div class="container" id="master_navigation">
 					<a href="#" class="btn btn-default navbar-btn"><span class="glyphicon glyphicon-chevron-left"></span> Back</a>
-					<a id="addNewRow" href="#" class="btn btn-default navbar-btn pull-right">Add <span class="glyphicon glyphicon-plus"></span></a>
 				</div>
 			</nav>
 		</div>
@@ -78,8 +186,11 @@
 				</div>
 
 				<div class="panel panel-default">
-					<div class="panel-heading">
-						<h3 class="panel-title">Checklist questions:</h3>
+					<div class="panel-heading clearfix">
+						<h4 class="panel-title pull-left" style="padding-top: 7.5px;">Checklist questions:</h4>
+						<div class="btn-group pull-right">
+							<a id="addNewRow" href="#" class="btn btn-default btn-sm">Add <span class="glyphicon glyphicon-plus"></span></a>
+						</div>
 					</div>
 					<div class="panel-body">
 						<ul class="list-group" id="settingsItemList" role="form"></ul>
@@ -110,6 +221,19 @@
 					<button type="button" class="btn btn-primary btn-move-up"><span class="glyphicon glyphicon-arrow-up"></span></button>
 					<button type="button" class="btn btn-primary btn-move-down"><span class="glyphicon glyphicon-arrow-down"></span></button>
 					<button type="button" class="btn btn-danger btn-removeItem"><span class="glyphicon glyphicon-remove"></span></button>
+				</div>
+			</div>
+		</div>
+	</script>
+
+	<script type="text/template" id="instruction3-1">
+		<div id="instructions" class="container">
+			<div class="alert alert-info alert-dismissable">
+				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+				<div id="instruction-text">
+					<h4>You're all set!</h4> 
+					<p>That's it. You can complete your checklist, and then click on the <button type="button" class="btn btn-primary btn-lg btn-sm">I'm done! <span class="glyphicon glyphicon-send"></span></button> button to send it to your chosen recipient.</p>
+					<p>If you want to change your checklist, or who it get's sent to, then click on the <span class="btn btn-default navbar-btn btn-sm"><span class="glyphicon glyphicon-cog"></span> Settings</span> button above.</p>
 				</div>
 			</div>
 		</div>

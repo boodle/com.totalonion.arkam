@@ -41,6 +41,11 @@
 
 				this.on_collectionChange();
 
+				if(!localStorage.getItem('completedFirstRun')) {
+					localStorage.setItem('completedFirstRun',true);
+					this.$('#main').prepend($('#instruction3-1').html());
+				}
+
 				return this;
 			},
 
